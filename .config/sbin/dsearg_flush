@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+origin_dir="@@dsearg_home/origin"
+sandbox_dir="@@dsearg_home/sandbox"
+
+rsync -a --delete \
+  --exclude=".idea" \
+  --exclude="*.iml" \
+  --exclude="var/cache" \
+  --exclude="var/sessions" \
+  $origin_dir"/" $sandbox_dir

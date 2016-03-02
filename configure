@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+config_source_dir='.config'
+
+cd $(dirname $0)
+dir=$(pwd)
+
+source ./.environment
+
+function process_config_file {
+  from_file=$1
+  to_file=$(echo -n $1|sed 's/^'$config_source_dir'\///')
+
+  mkdir -p $(dirname $to_file)
+
+  escaped_dir=$(echo $dir|sed -e 's/[\/&]/\\&/g')
+  escaped_nginx_config_dir=$(echo $nginx_config_dir|sed -e 's/[\/&]/\\&/g')
+
+  sed -e 's/@@dsearg_home/'$escaped_dir'/g' $from_file|sed -e 's/@@nginx_config_dir/'$escaped_nginx_config_dir'/g' > $to_file
+}
+
+find $config_source_dir -type f -name "*" | while read file; do process_config_file "$file"; done
+

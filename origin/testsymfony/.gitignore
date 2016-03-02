@@ -1,0 +1,11 @@
+# Ignore everything in this directory
+LICENSE
+README.md
+app/
+bin/
+composer.lock
+phpunit.xml.dist
+var/
+vendor/
+web/
+
